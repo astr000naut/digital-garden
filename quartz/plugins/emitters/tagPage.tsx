@@ -85,10 +85,11 @@ async function processTagPage(
   }
 
   const content = renderPage(cfg, slug, componentData, opts, externalResources)
+  const isIndex = file.data.slug!.endsWith("/index")
   return write({
     ctx,
     content,
-    slug: file.data.slug!,
+    slug: isIndex ? file.data.slug! : (joinSegments(file.data.slug!, "index") as FullSlug),
     ext: ".html",
   })
 }
